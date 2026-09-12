@@ -1,13 +1,15 @@
 {
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "jsx": "react-jsx",
-    "checkJs": false,
-    "allowJs": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler"
-  },
-  "include": ["src", "vite.config.js"]
+   "compilerOptions": {
+      "ignoreDeprecations": "6.0",
+      "target": "ES2022",
+      "module": "ESNext",
+      "moduleResolution": "Bundler",
+      "jsx": "react-jsx",
+      "baseUrl": ".",
+      "paths": {
+         "*": ["src/*"]
+      }
+   },
+   "include": ["src/**/*.js", "src/**/*.jsx"],
+   "exclude": ["node_modules", "dist"]
 }

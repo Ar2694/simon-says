@@ -1,4 +1,7 @@
 
+import ComponentDisplay from "lib/components/ComponentDisplay";
+import { HashRouter } from "react-router";
+
 export default function AppRoutes(props) {
   const { context } = props;
   const { app } = context.state;
@@ -8,7 +11,14 @@ export default function AppRoutes(props) {
   }
 
 
-  ret
+
+  return(
+    <HashRouter>
+      <ComponentDisplay wh>
+
+      </ComponentDisplay>
+    </HashRouter>
+  )
 
   if (!app.isAuthenticated) {
     return (
