@@ -1,5 +1,13 @@
-import { ComponentChildren } from "@/lib";
+import { ComponentChildren, StateClass } from "@/lib";
 
 export default function HomeModel(props) {
-  return <ComponentChildren children={props.children} />;
+  const model = StateClass.init({
+    simonSayGame: {
+      sequence: [],
+      currentLevel: 0,
+      isPlayerTurn: false,
+    },
+  });
+
+  return <ComponentChildren children={props.children} childProps={{ model }} />;
 }

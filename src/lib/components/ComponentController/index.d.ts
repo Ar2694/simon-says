@@ -4,6 +4,7 @@ import type * as React from 'react';
 export interface ComponentControllerProps extends UseControllerProps  {
   state?: any;
   children?: React.ReactNode;
+  childProps?: Record<string, any>;
   [key: string]: any;
 }
 

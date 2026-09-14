@@ -11,6 +11,7 @@ export default class StateClass {
   get(path?: Array<string | number>): any;
   commit(): this;
   bind(state?: any, setState?: any): this;
+  initState(state?: any): this;
 
   static init(state?: any, setState?: any): StateClass;
 }
