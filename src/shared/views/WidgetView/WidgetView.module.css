@@ -1,0 +1,5 @@
+.root:global.widget-view {
+  background-color: #0f102c;
+  padding: 40px;
+  border: 2px solid #00f5ff;
+}

@@ -1,0 +1,57 @@
+.root :global .simon-says-header {
+  justify-content: center;
+}
+
+/* Header Section */
+.root :global(.neon-text) {
+  text-align: center;
+  margin-bottom: 50px;
+  animation: slideDown 1s ease-out;
+}
+
+.root :global(.neon-text h1.header-text) {
+  font-size: 3.5em;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ff006e, #00f5ff, #39ff14);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+  margin-bottom: 10px;
+  animation: glow 2s ease-in-out infinite;
+}
+
+.root :global .subtitle {
+  font-size: 1.2em;
+  color: #00f5ff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.7);
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 20px rgba(0, 245, 255, 0.5),
+      0 0 30px rgba(255, 0, 110, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 30px rgba(0, 245, 255, 0.8),
+      0 0 40px rgba(255, 0, 110, 0.5);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

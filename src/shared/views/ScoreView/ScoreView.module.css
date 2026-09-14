@@ -1,0 +1,26 @@
+.root {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  background: rgba(0, 245, 255, 0.05);
+
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 10px;
+}
+
+.root :global .stat-label {
+  font-size: 0.85em;
+  color: #00f5ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.root :global .stat-value {
+  font-size: 2em;
+  font-weight: bold;
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.6);
+  font-family: "Courier New", monospace;
+}

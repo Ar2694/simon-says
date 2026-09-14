@@ -1,8 +1,7 @@
-import AppContext from "../AppContext";
-import AppModel from "../AppModel";
-import AppRoutes from "../AppRoutes";
-import AppTheme from "../AppTheme";
-
+import AppContext from "@/app/components/AppContext";
+import AppModel from "@/app/components/AppModel";
+import AppRoutes from "@/app/components/AppRoutes";
+import AppTheme from "@/app/components/AppTheme";
 
 export default function App() {
   return (
@@ -13,5 +12,5 @@ export default function App() {
         </AppContext>
       </AppModel>
     </AppTheme>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { ComponentChildren, useModel } from "asnow-lib";
+import { ComponentChildren, useModel } from "@/lib";
 import React from "react";
 
 export default function AppModel(props) {
