@@ -16,13 +16,6 @@ export default function useController(initialState, props) {
         controllerRef.current.setState = setState;
     }
 
-    useEffect(() => {
-        if (controllerRef.current) {
-            controllerRef.current.loadEffects();
-        }
-
-    }, [])
-
     const controllerProps = { controller: controllerRef.current }
 
     return controllerProps;

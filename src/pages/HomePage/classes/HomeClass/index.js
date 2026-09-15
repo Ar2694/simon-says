@@ -1,4 +1,5 @@
 import { StateClass } from "@/lib";
+import { act } from "react";
 
 export default class HomeClass extends StateClass {
   constructor(state, setState) {
@@ -6,25 +7,61 @@ export default class HomeClass extends StateClass {
     this.initState({
       simonSayGame: {
         sequence: [],
-        currentLevel: 1,
+        currentSequenceIndex: 0,
+        currentLevel:4,
         currentStreak: 0,
         currentScore: 0,
         isPlayerTurn: false,
         playerMove: null,
         hasStarted: false,
+        btn1: {
+          active: false,
+        },
+        btn2: {
+          active: false,
+        },
+        btn3: {
+          active: false,
+        },
+        btn4: {
+          active: false,
+        },
       },
     });
   }
 
   startGame() {
     console.log("startGame called");
-    this.set(["simonSayGame", "hasStarted"], true).set(["simonSayGame", "currentLevel"], 1);
+    this.set(["simonSayGame", "hasStarted"], true);
     this.generateSequencesByLevel();
     return this;
   }
   resetGame() {
     console.log("resetGame called");
-    this.set(["simonSayGame", "hasStarted"], false).set(["simonSayGame", "currentLevel"], 1);
+      this.initState({
+      simonSayGame: {
+        sequence: [],
+        currentSequenceIndex: 0,
+        currentLevel:4,
+        currentStreak: 0,
+        currentScore: 0,
+        isPlayerTurn: false,
+        playerMove: null,
+        hasStarted: false,
+        btn1: {
+          active: false,
+        },
+        btn2: {
+          active: false,
+        },
+        btn3: {
+          active: false,
+        },
+        btn4: {
+          active: false,
+        },
+      },
+    });
     return this;
   }
 
@@ -33,43 +70,25 @@ export default class HomeClass extends StateClass {
     const newSequence = Array.from({ length: currentLevel }, () => Math.floor(Math.random() * 4) + 1);
     this.set(["simonSayGame", "sequence"], newSequence);
     return this;
-  } 
-  playGame() {
-    const sequence = this.get(["simonSayGame", "sequence"]);
-    const currentLevel = this.get(["simonSayGame", "currentLevel"]);
-    const isPlayerTurn = this.get(["simonSayGame", "isPlayerTurn"]);
-
-    if (!isPlayerTurn) {
-      sequence.push(Math.floor(Math.random() * 4) + currentLevel);
-      this.set(["simonSayGame", "sequence"], sequence);
-    }
-    this.set(["simonSayGame", "isPlayerTurn"], !isPlayerTurn);
-    return this;
   }
 
-  
-  validatePlayerMove(playerMove) {
+  playSequence(callback) {
+   
     const sequence = this.get(["simonSayGame", "sequence"]);
-    const currentLevel = this.get(["simonSayGame", "currentLevel"]);
-    const isPlayerTurn = this.get(["simonSayGame", "isPlayerTurn"]);
+    const currentSequenceIndex = this.get(["simonSayGame", "currentSequenceIndex"]);
 
-
-    console.log("validatePlayerMove called with playerMove:", playerMove, "expectedMove:", sequence[sequence.length - 1]);
-    if (!isPlayerTurn) {
-      return this;
-    }
-
-    const expectedMove = sequence[sequence.length - 1];
-    const isValid = playerMove === expectedMove;
-
-    if (isValid) {
-      this.set(["simonSayGame", "currentStreak"], this.get(["simonSayGame", "currentStreak"]) + 1);
-      this.set(["simonSayGame", "currentScore"], this.get(["simonSayGame", "currentScore"]) + 1);
+    if (currentSequenceIndex < sequence.length) {
+      const step = sequence[currentSequenceIndex];
+      if (callback) {
+        callback(step, currentSequenceIndex);
+      }
+      console.log(`Playing sequence step ${currentSequenceIndex + 1}: ${step}`, sequence);
+      this.set(["simonSayGame", "currentSequenceIndex"], currentSequenceIndex + 1);
     } else {
-      this.set(["simonSayGame", "currentStreak"], 0);
+      console.log("Sequence completed");
+      this.set(["simonSayGame", "isPlayerTurn"], true);
     }
 
-    this.set(["simonSayGame", "isPlayerTurn"], !isPlayerTurn);
     return this;
   }
 

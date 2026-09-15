@@ -12,7 +12,6 @@ export default function SimonSaysView(props) {
   const { controller, btnRefOne, btnRefTwo, btnRefThree, btnRefFour } = props;
   const { simonSayGame } = controller.state;
 
-  console.log("btnRefOne", props);
   return (
     <WidgetView className={`simons-says-view ${styles.root}`}>
       <StackContainer className="simon-says-content" spacing={4}>
@@ -23,16 +22,16 @@ export default function SimonSaysView(props) {
         <GridContainer className="simon-says-game">
           {/* Game content goes here */}
           <GridItem size={6}>
-            <TileButton text="1" className="btn-1" onClick={controller.onClick("targetBtn", "1")} ref={btnRefOne} />
+            <TileButton text="1" className={`btn-1 ${simonSayGame.btn1.active ? "active" : ""}`} onClick={controller.onClick("targetBtn", "1")} ref={btnRefOne} />
           </GridItem>
           <GridItem size={6}>
-            <TileButton text="2" className="btn-2" onClick={controller.onClick("targetBtn", "2")} ref={btnRefTwo} />
+            <TileButton text="2" className={`btn-2 ${simonSayGame.btn2.active ? "active" : ""}`} onClick={controller.onClick("targetBtn", "2")} ref={btnRefTwo} />
           </GridItem>
           <GridItem size={6}>
-            <TileButton text="3" className="btn-3" onClick={controller.onClick("targetBtn", "3")} ref={btnRefThree} />
+            <TileButton text="3" className={`btn-3 ${simonSayGame.btn3.active ? "active" : ""}`} onClick={controller.onClick("targetBtn", "3")} ref={btnRefThree} />
           </GridItem>
           <GridItem size={6}>
-            <TileButton text="4" className="btn-4" onClick={controller.onClick("targetBtn", "4")} ref={btnRefFour} />
+            <TileButton text="4" className={`btn-4 ${simonSayGame.btn4.active ? "active" : ""}`} onClick={controller.onClick("targetBtn", "4")} ref={btnRefFour} />
           </GridItem>
         </GridContainer>
 
