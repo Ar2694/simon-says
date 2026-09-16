@@ -58,11 +58,7 @@ export default class StateClass {
 
     const currentValue = this.get(path);
 
-    if (
-      currentValue === null ||
-      currentValue === undefined ||
-      typeof currentValue !== "object"
-    ) {
+    if (currentValue === null || currentValue === undefined || typeof currentValue !== "object") {
       return this;
     }
 
@@ -90,11 +86,7 @@ export default class StateClass {
 
     const currentValue = this.get(path);
 
-    if (
-      currentValue === null ||
-      currentValue === undefined ||
-      typeof currentValue !== "object"
-    ) {
+    if (currentValue === null || currentValue === undefined || typeof currentValue !== "object") {
       return this;
     }
 

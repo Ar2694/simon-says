@@ -9,7 +9,7 @@ import ButtonContainer from "@/shared/containers/ButtonContainer";
 import ScoreView from "@/shared/views/ScoreView";
 
 export default function SimonSaysView(props) {
-  const { controller, btnRefOne, btnRefTwo, btnRefThree, btnRefFour } = props;
+  const { controller } = props;
   const { simonSayGame } = controller.state;
 
   return (
@@ -22,24 +22,50 @@ export default function SimonSaysView(props) {
         <GridContainer className="simon-says-game">
           {/* Game content goes here */}
           <GridItem size={6}>
-            <TileButton text="1" className={`btn-1 ${simonSayGame.btn1.active ? "active" : ""}`} onClick={controller.onClick("targetBtn", "1")} ref={btnRefOne} />
+            <TileButton
+              text="1"
+              disabled={!simonSayGame.isPlayerTurn}
+              className={`btn-1 ${simonSayGame.isPlayerTurn ? "player-active" : ""} ${simonSayGame.btn1.active ? "active" : ""}`}
+              onClick={controller.onClick("targetBtn", "1")}
+            />
           </GridItem>
           <GridItem size={6}>
-            <TileButton text="2" className={`btn-2 ${simonSayGame.btn2.active ? "active" : ""}`} onClick={controller.onClick("targetBtn", "2")} ref={btnRefTwo} />
+            <TileButton
+              text="2"
+              disabled={!simonSayGame.isPlayerTurn}
+              className={`btn-2 ${simonSayGame.isPlayerTurn ? "player-active" : ""} ${simonSayGame.btn2.active ? "active" : ""}`}
+              onClick={controller.onClick("targetBtn", "2")}
+            />
           </GridItem>
           <GridItem size={6}>
-            <TileButton text="3" className={`btn-3 ${simonSayGame.btn3.active ? "active" : ""}`} onClick={controller.onClick("targetBtn", "3")} ref={btnRefThree} />
+            <TileButton
+              text="3"
+              disabled={!simonSayGame.isPlayerTurn}
+              className={`btn-3 ${simonSayGame.isPlayerTurn ? "player-active" : ""} ${simonSayGame.btn3.active ? "active" : ""}`}
+              onClick={controller.onClick("targetBtn", "3")}
+            />
           </GridItem>
           <GridItem size={6}>
-            <TileButton text="4" className={`btn-4 ${simonSayGame.btn4.active ? "active" : ""}`} onClick={controller.onClick("targetBtn", "4")} ref={btnRefFour} />
+            <TileButton
+              text="4"
+              disabled={!simonSayGame.isPlayerTurn}
+              className={`btn-4 ${simonSayGame.isPlayerTurn ? "player-active" : ""} ${simonSayGame.btn4.active ? "active" : ""}`}
+              onClick={controller.onClick("targetBtn", "4")}
+            />
           </GridItem>
         </GridContainer>
 
         <ScoreView controller={controller} />
 
         <ButtonContainer className="simon-says-buttons">
-          <Button className="start-btn" text="Start Game" variant="outlined" onClick={controller.onClick("startGame")} disabled={simonSayGame.hasStarted} />
-          <Button className="reset-btn" text="Reset Game" variant="outlined" color="secondary" onClick={controller.onClick("resetGame")}  />
+          <Button
+            className="start-btn"
+            text="Start Game"
+            variant="outlined"
+            onClick={controller.onClick("startGame")}
+            disabled={simonSayGame.hasStarted}
+          />
+          <Button className="reset-btn" text="Reset Game" variant="outlined" color="secondary" onClick={controller.onClick("resetGame")} />
           <Button className="info-btn" text="Info" variant="outlined" color="info" onClick={controller.onClick("showInfoModal")} />
         </ButtonContainer>
       </StackContainer>

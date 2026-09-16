@@ -1,7 +1,7 @@
 .root {
   border: none;
   border-radius: 12px;
-  cursor: pointer;
+cursor: unset;
   font-size: 1.5em;
   font-weight: bold;
   text-transform: uppercase;
@@ -13,6 +13,10 @@
   align-items: center;
   justify-content: center;
   min-height: 250px;
+
+}
+.root:global(.player-active:hover) {
+  cursor: pointer;
 }
 
 .root:global(.btn-1) {
@@ -25,7 +29,7 @@
 }
 
 .root:global(.btn-1.active),
-.root:global(.btn-1:hover) {
+.root:global(.btn-1.player-active:hover) {
   box-shadow:
     0 0 30px rgba(255, 0, 110, 0.8),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
@@ -41,7 +45,7 @@
     inset 0 0 15px rgba(255, 255, 255, 0.1);
 }
 .root:global(.btn-2.active),
-.root:global(.btn-2:hover) {
+.root:global(.btn-2.player-active:hover) {
   box-shadow:
     0 0 30px rgba(0, 245, 255, 0.8),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
@@ -58,7 +62,7 @@
 }
 
 .root:global(.btn-3.active),
-.root:global(.btn-3:hover) {
+.root:global(.btn-3.player-active:hover) {
   box-shadow:
     0 0 30px rgba(57, 255, 20, 0.8),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
@@ -75,7 +79,7 @@
 }
 
 .root:global(.btn-4.active),
-.root:global(.btn-4:hover),
+.root:global(.btn-4.player-active:hover),
 .root:global(.btn-4:focus) {
   box-shadow:
     0 0 30px rgba(181, 55, 242, 0.8),
