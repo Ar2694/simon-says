@@ -7,6 +7,7 @@ import Button from "@/shared/ui/Button";
 import TileButton from "@/shared/ui/TileButton";
 import ButtonContainer from "@/shared/containers/ButtonContainer";
 import ScoreView from "@/shared/views/ScoreView";
+import ModalUI from "@/shared/ui/ModalUI";
 
 export default function SimonSaysView(props) {
   const { controller } = props;
@@ -26,7 +27,7 @@ export default function SimonSaysView(props) {
               text="1"
               disabled={!simonSayGame.isPlayerTurn}
               className={`btn-1 ${simonSayGame.isPlayerTurn ? "player-active" : ""} ${simonSayGame.btn1.active ? "active" : ""}`}
-              onClick={controller.onClick("targetBtn", "1")}
+              onClick={controller.onClick("validatePlayerMove", 1)}
             />
           </GridItem>
           <GridItem size={6}>
@@ -34,7 +35,7 @@ export default function SimonSaysView(props) {
               text="2"
               disabled={!simonSayGame.isPlayerTurn}
               className={`btn-2 ${simonSayGame.isPlayerTurn ? "player-active" : ""} ${simonSayGame.btn2.active ? "active" : ""}`}
-              onClick={controller.onClick("targetBtn", "2")}
+              onClick={controller.onClick("validatePlayerMove", 2)}
             />
           </GridItem>
           <GridItem size={6}>
@@ -42,7 +43,7 @@ export default function SimonSaysView(props) {
               text="3"
               disabled={!simonSayGame.isPlayerTurn}
               className={`btn-3 ${simonSayGame.isPlayerTurn ? "player-active" : ""} ${simonSayGame.btn3.active ? "active" : ""}`}
-              onClick={controller.onClick("targetBtn", "3")}
+              onClick={controller.onClick("validatePlayerMove", 3)}
             />
           </GridItem>
           <GridItem size={6}>
@@ -50,7 +51,7 @@ export default function SimonSaysView(props) {
               text="4"
               disabled={!simonSayGame.isPlayerTurn}
               className={`btn-4 ${simonSayGame.isPlayerTurn ? "player-active" : ""} ${simonSayGame.btn4.active ? "active" : ""}`}
-              onClick={controller.onClick("targetBtn", "4")}
+              onClick={controller.onClick("validatePlayerMove", 4)}
             />
           </GridItem>
         </GridContainer>
@@ -65,8 +66,16 @@ export default function SimonSaysView(props) {
             onClick={controller.onClick("startGame")}
             disabled={simonSayGame.hasStarted}
           />
-          <Button className="reset-btn" text="Reset Game" variant="outlined" color="secondary" onClick={controller.onClick("resetGame")} />
+          <Button
+            className="reset-btn"
+            text="Reset Game"
+            variant="outlined"
+            color="secondary"
+            disabled={!simonSayGame.hasStarted}
+            onClick={controller.onClick("resetGame")}
+          />
           <Button className="info-btn" text="Info" variant="outlined" color="info" onClick={controller.onClick("showInfoModal")} />
+          <ModalUI open={true} />
         </ButtonContainer>
       </StackContainer>
     </WidgetView>

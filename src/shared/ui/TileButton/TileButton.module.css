@@ -79,8 +79,7 @@ cursor: unset;
 }
 
 .root:global(.btn-4.active),
-.root:global(.btn-4.player-active:hover),
-.root:global(.btn-4:focus) {
+.root:global(.btn-4.player-active:hover) {
   box-shadow:
     0 0 30px rgba(181, 55, 242, 0.8),
     inset 0 0 20px rgba(255, 255, 255, 0.2);

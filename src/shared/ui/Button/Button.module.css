@@ -28,8 +28,8 @@
   border-color: #52ff2a;
 }
 
-.root:global.start-btn:disabled {
-  opacity: 0.5;
+.root:global:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }
 

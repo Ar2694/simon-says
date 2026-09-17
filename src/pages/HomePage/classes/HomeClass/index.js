@@ -3,16 +3,18 @@ import { StateClass } from "@/lib";
 export default class HomeClass extends StateClass {
   constructor(state, setState) {
     super(state, setState);
-    this.initState({
+
+    this.defaultState = {
       simonSayGame: {
         sequence: [],
         currentSequenceIndex: 0,
-        currentLevel: 4,
+        currentLevel: 2,
         currentStreak: 0,
         currentScore: 0,
         isPlayerTurn: false,
         playerMove: null,
         hasStarted: false,
+        isGameOver: false,
         btn1: {
           active: false,
         },
@@ -26,7 +28,8 @@ export default class HomeClass extends StateClass {
           active: false,
         },
       },
-    });
+    };
+    this.initState(this.defaultState);
   }
 
   /**
@@ -51,35 +54,49 @@ export default class HomeClass extends StateClass {
     this.commit();
     return this;
   };
-  resetGame = (state, setState) => {
-    console.log("resetGame called");
-    this.bind(state, setState);
-    this.initState({
-      simonSayGame: {
-        sequence: [],
-        currentSequenceIndex: 0,
-        currentLevel: 4,
-        currentStreak: 0,
-        currentScore: 0,
-        isPlayerTurn: false,
-        playerMove: null,
-        hasStarted: false,
-        btn1: {
-          active: false,
-        },
-        btn2: {
-          active: false,
-        },
-        btn3: {
-          active: false,
-        },
-        btn4: {
-          active: false,
-        },
-      },
-    });
+  resetToDefault() {
+    console.log("resetToDefault called regular");
+    this.initState(this.defaultState);
     this.commit();
     return this;
+  }
+  resetGame = (state, setState) => {
+    console.log("resetGame called arrow");
+    this.bind(state, setState);
+    this.initState(this.defaultState);
+    this.commit();
+    return this;
+  };
+
+  validatePlayerMove = (state, setState, id) => {
+    this.bind(state, setState);
+    const sequence = this.get(["simonSayGame", "sequence"]);
+    const currentSequenceIndex = this.get(["simonSayGame", "currentSequenceIndex"]);
+    const currentLevel = this.get(["simonSayGame", "currentLevel"]);
+
+    console.log(
+      "Validating player move:",
+      typeof id,
+      typeof sequence[currentSequenceIndex],
+      "Current sequence index:",
+      currentSequenceIndex,
+      "Sequence:",
+      sequence,
+    );
+    if (id === sequence[currentSequenceIndex]) {
+      this.set(["simonSayGame", "currentSequenceIndex"], currentSequenceIndex + 1);
+      if (currentLevel === currentSequenceIndex + 1) {
+        this.set(["simonSayGame", "isPlayerTurn"], false);
+        this.set(["simonSayGame", "currentLevel"], currentLevel + 1);
+        this.set(["simonSayGame", "currentSequenceIndex"], 0);
+        this.generateSequencesByLevel();
+      }
+    } else {
+      this.resetToDefault();
+      this.set(["simonSayGame", "isGameOver"], true);
+    }
+    console.log("Binding state and setState", this.state);
+    this.commit();
   };
 
   /**
@@ -142,6 +159,7 @@ export default class HomeClass extends StateClass {
     return {
       startGame: this.startGame,
       resetGame: this.resetGame,
+      validatePlayerMove: this.validatePlayerMove,
     };
   }
 
