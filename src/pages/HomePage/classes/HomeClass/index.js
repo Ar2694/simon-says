@@ -33,6 +33,9 @@ export default class HomeClass extends StateClass {
       nextLevelModal: {
         open: false,
       },
+      infoModal: {
+        open: false,
+      },
     };
 
     this.initState(this.defaultState);
@@ -110,6 +113,17 @@ export default class HomeClass extends StateClass {
     this.set(["simonSayGame", "isPlayerTurn"], false);
     this.commit();
   };
+  closeInfoModal = (state, setState) => {
+    this.bind(state, setState);
+    this.set(["infoModal", "open"], false);
+    this.commit();
+  };
+
+  openInfoModal = (state, setState) => {
+    this.bind(state, setState);
+    this.set(["infoModal", "open"], true);
+    this.commit();
+  };
   /**
    * List of effects that can be triggered externally.
    */
@@ -164,6 +178,8 @@ export default class HomeClass extends StateClass {
         validatePlayerMove: this.validatePlayerMove,
         closeGameOverModal: this.closeGameOverModal,
         closeNextLevelModal: this.closeNextLevelModal,
+        closeInfoModal: this.closeInfoModal,
+        openInfoModal: this.openInfoModal,
       },
     };
   }
