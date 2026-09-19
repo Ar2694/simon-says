@@ -1,4 +1,4 @@
-import { StateClass } from "@/lib";
+import { StateClass } from "asnow-lib";
 
 export default class HomeClass extends StateClass {
   constructor(state, setState) {
@@ -36,6 +36,9 @@ export default class HomeClass extends StateClass {
         open: false,
       },
       infoModal: {
+        open: false,
+      },
+      resetGameModal: {
         open: false,
       },
     };
@@ -163,7 +166,18 @@ export default class HomeClass extends StateClass {
     this.commit();
   };
 
-
+  closeResetGameModal = (state, setState) => {
+    this.bind(state, setState);
+    this.set(["resetGameModal", "open"], false);
+    this.commit();
+    return this;
+  };
+  openResetGameModal = (state, setState) => {
+    this.bind(state, setState);
+    this.set(["resetGameModal", "open"], true);
+    this.commit();
+    return this;
+  };
   closeGameOverModal = (state, setState) => {
     this.bind(state, setState);
     this.set(["gameOverModal", "open"], false);
@@ -246,6 +260,8 @@ export default class HomeClass extends StateClass {
         closeNextLevelModal: this.closeNextLevelModal,
         closeInfoModal: this.closeInfoModal,
         openInfoModal: this.openInfoModal,
+        closeResetGameModal: this.closeResetGameModal,
+        openResetGameModal: this.openResetGameModal,
       },
     };
   }

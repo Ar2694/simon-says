@@ -1,4 +1,3 @@
-import React from "react";
 import { CssBaseline, StyledEngineProvider } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import appTheme from "./themes/appTheme";

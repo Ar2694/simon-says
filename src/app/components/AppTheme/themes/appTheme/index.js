@@ -42,8 +42,8 @@ const appTheme = createTheme({
         },
       },
     },
-    MuiStack:{
-      defaultProps:{
+    MuiStack: {
+      defaultProps: {
         spacing: 2,
       }
     }

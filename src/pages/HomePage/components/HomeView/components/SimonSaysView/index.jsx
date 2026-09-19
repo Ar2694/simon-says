@@ -11,6 +11,7 @@ import ScoreView from "@/shared/views/ScoreView";
 import GameOverModal from "@/shared/ui/Modal/components/GameOverModal";
 import NextLevelModal from "@/shared/ui/Modal/components/NextLevelModal";
 import InfoModal from "@/shared/ui/Modal/components/InfoModal";
+import ResetGameModal from "@/shared/ui/Modal/components/ResetGameModal";
 
 export default function SimonSaysView(props) {
   const { controller } = props;
@@ -75,12 +76,13 @@ export default function SimonSaysView(props) {
             variant="outlined"
             color="secondary"
             disabled={!simonSayGame.hasStarted}
-            onClick={controller.onClick("resetGame")}
+            onClick={controller.onClick("openResetGameModal")}
           />
           <Button className="info-btn" text="Info" variant="outlined" color="info" onClick={controller.onClick("openInfoModal")} />
           <NextLevelModal controller={controller} />
           <GameOverModal controller={controller} />
           <InfoModal controller={controller} />
+          <ResetGameModal controller={controller} />
         </ButtonContainer>
       </StackContainer>
     </WidgetView>

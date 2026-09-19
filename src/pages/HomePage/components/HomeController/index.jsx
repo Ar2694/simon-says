@@ -1,9 +1,29 @@
 import HomeClass from "@/pages/HomePage/classes/HomeClass";
-import HomeControllerEffect from "@/pages/HomePage/components/HomeControllerEffect";
+import { useController, ComponentChildren } from "asnow-lib";
+import { useEffect } from "react";
 
 export default function HomeController(props) {
   const model = HomeClass.init();
-  const { clicks, effects } = model.getController();
+  const { controller } = useController(model.state, model.getController());
+  const { simonSayGame } = controller.state ?? {};
 
-  return <HomeControllerEffect state={model.state} children={props.children} clicks={clicks} effects={effects} />;
+  useEffect(() => {
+
+    if (!simonSayGame.isPlayerTurn && simonSayGame.hasStarted) {
+      if (simonSayGame.currentSequenceIndex === 0) {
+        const timer = setInterval(() => {
+          controller.runEffects();
+        }, 500);
+        return () => clearInterval(timer);
+      } else {
+        const timer = setInterval(() => {
+          controller.runEffects();
+        }, 1000);
+        return () => clearInterval(timer);
+      }
+    }
+
+  }, [simonSayGame.hasStarted, simonSayGame.currentSequenceIndex, simonSayGame.isPlayerTurn]);
+
+  return <ComponentChildren children={props.children} childProps={{ controller }} />;
 }

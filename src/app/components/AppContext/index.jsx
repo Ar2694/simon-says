@@ -1,20 +1,19 @@
+import { createContext, useContext } from "react";
+import { ComponentChildren, useController } from "asnow-lib";
+import AppClass from "@/app/classes/AppClass";
 
-import { ComponentContext, useComponentContext as useAppContext } from "@/lib";
-import React from 'react'
-import { useNavigate } from "react-router";
-
+const Context = createContext(null);
 
 export default function AppContext(props) {
-  const didRefreshed = React.useRef(false);
-  const { model } = props;
+  const model = AppClass.init();
+  const { controller } = useController(model.state, {});
 
   return (
-    <ComponentContext
-      state={model.state}
-    
-      children={props.children}
-    />
-  );
+    <Context.Provider value={{ controller }}>
+      <ComponentChildren children={props.children} childProps={{ controller }} />
+    </Context.Provider>
+  )
 }
 
-export { useAppContext };
+export const useAppContext = () => useContext(Context);
+

@@ -1,0 +1,7 @@
+.root :global .modal-content {
+  border: 2px solid #ff006e;
+  box-shadow:
+    0 0 30px rgba(255, 0, 110, 0.4),
+    0 0 60px rgba(255, 0, 110, 0.2),
+    inset 0 0 30px rgba(255, 0, 110, 0.1);
+}

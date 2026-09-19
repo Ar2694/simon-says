@@ -2,10 +2,11 @@ import SimonSaysView from "@/pages/HomePage/components/HomeView/components/Simon
 import PageView from "@/shared/views/PageView";
 
 export default function HomeView(props) {
- 
+  const { controller } = props;
+
   return (
-  <PageView>
-    <SimonSaysView {...props} />
-  </PageView>
+    <PageView>
+      <SimonSaysView controller={controller} />
+    </PageView>
   );
 }
