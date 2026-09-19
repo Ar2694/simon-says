@@ -7,9 +7,8 @@ export default function HomeControllerEffect(props) {
   const { simonSayGame } = controller.state ?? {};
 
   useEffect(() => {
-          console.log("simonSayGame", simonSayGame);
-    if (!simonSayGame.isPlayerTurn && simonSayGame.hasStarted) {
 
+    if (!simonSayGame.isPlayerTurn && simonSayGame.hasStarted) {
       if (simonSayGame.currentSequenceIndex === 0) {
         const timer = setInterval(() => {
           controller.loadEffects();
@@ -22,6 +21,7 @@ export default function HomeControllerEffect(props) {
         return () => clearInterval(timer);
       }
     }
+    
   }, [simonSayGame.hasStarted, simonSayGame.currentSequenceIndex, simonSayGame.isPlayerTurn]);
 
   return <ComponentChildren children={props.children} childProps={{ ...childProps, controller }} />;

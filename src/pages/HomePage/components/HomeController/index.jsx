@@ -3,8 +3,7 @@ import HomeControllerEffect from "@/pages/HomePage/components/HomeControllerEffe
 
 export default function HomeController(props) {
   const model = HomeClass.init();
-  const effects = model.getEffects();
-  const clicks = model.getClicks();
+  const { clicks, effects } = model.getController();
 
   return <HomeControllerEffect state={model.state} children={props.children} clicks={clicks} effects={effects} />;
 }

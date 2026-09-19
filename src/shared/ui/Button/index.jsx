@@ -22,3 +22,17 @@ export default function Button(props) {
     </MuiButton>
   );
 }
+
+
+
+export function PrimaryButton(props) {
+  return <Button {...props} className="primary-btn" color="primary" />;
+}
+
+export function SecondaryButton(props) {
+  return <Button {...props} className="secondary-btn" color="secondary" />;
+}
+
+export function TertiaryButton(props) {
+  return <Button {...props} className="tertiary-btn" color="info" />;
+}

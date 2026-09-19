@@ -7,7 +7,9 @@ import Button from "@/shared/ui/Button";
 import TileButton from "@/shared/ui/TileButton";
 import ButtonContainer from "@/shared/containers/ButtonContainer";
 import ScoreView from "@/shared/views/ScoreView";
-import ModalUI from "@/shared/ui/ModalUI";
+
+import GameOverModal from "@/shared/ui/Modal/components/GameOverModal";
+import NextLevelModal from "@/shared/ui/Modal/components/NextLevelModal";
 
 export default function SimonSaysView(props) {
   const { controller } = props;
@@ -75,7 +77,8 @@ export default function SimonSaysView(props) {
             onClick={controller.onClick("resetGame")}
           />
           <Button className="info-btn" text="Info" variant="outlined" color="info" onClick={controller.onClick("showInfoModal")} />
-          <ModalUI open={true} />
+          <NextLevelModal controller={controller} />
+          <GameOverModal controller={controller} />
         </ButtonContainer>
       </StackContainer>
     </WidgetView>

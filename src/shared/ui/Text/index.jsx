@@ -1,9 +1,9 @@
 import { Typography } from "@mui/material";
 
 export default function Text(props) {
-    const {text = props.children, ...rest} = props;
+    const {text = props.children, className = "", ...rest} = props;
 
   return (
-    <Typography {...rest}>{text}</Typography>
+    <Typography className={`text ${className}`} {...rest}>{text}</Typography>
   )
 }

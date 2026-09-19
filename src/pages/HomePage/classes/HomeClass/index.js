@@ -8,11 +8,10 @@ export default class HomeClass extends StateClass {
       simonSayGame: {
         sequence: [],
         currentSequenceIndex: 0,
-        currentLevel: 2,
+        currentLevel: 1,
         currentStreak: 0,
         currentScore: 0,
         isPlayerTurn: false,
-        playerMove: null,
         hasStarted: false,
         isGameOver: false,
         btn1: {
@@ -28,7 +27,14 @@ export default class HomeClass extends StateClass {
           active: false,
         },
       },
+      gameOverModal: {
+        open: false,
+      },
+      nextLevelModal: {
+        open: false,
+      },
     };
+
     this.initState(this.defaultState);
   }
 
@@ -47,21 +53,20 @@ export default class HomeClass extends StateClass {
    */
 
   startGame = (state, setState) => {
-    console.log("startGame called");
     this.bind(state, setState);
     this.set(["simonSayGame", "hasStarted"], true);
     this.generateSequencesByLevel();
     this.commit();
     return this;
   };
+
   resetToDefault() {
-    console.log("resetToDefault called regular");
     this.initState(this.defaultState);
     this.commit();
     return this;
   }
+
   resetGame = (state, setState) => {
-    console.log("resetGame called arrow");
     this.bind(state, setState);
     this.initState(this.defaultState);
     this.commit();
@@ -73,32 +78,38 @@ export default class HomeClass extends StateClass {
     const sequence = this.get(["simonSayGame", "sequence"]);
     const currentSequenceIndex = this.get(["simonSayGame", "currentSequenceIndex"]);
     const currentLevel = this.get(["simonSayGame", "currentLevel"]);
+    const currentStreak = this.get(["simonSayGame", "currentStreak"]);
+    const currentScore = this.get(["simonSayGame", "currentScore"]);
 
-    console.log(
-      "Validating player move:",
-      typeof id,
-      typeof sequence[currentSequenceIndex],
-      "Current sequence index:",
-      currentSequenceIndex,
-      "Sequence:",
-      sequence,
-    );
     if (id === sequence[currentSequenceIndex]) {
       this.set(["simonSayGame", "currentSequenceIndex"], currentSequenceIndex + 1);
       if (currentLevel === currentSequenceIndex + 1) {
-        this.set(["simonSayGame", "isPlayerTurn"], false);
+        this.set(["nextLevelModal", "open"], true);
         this.set(["simonSayGame", "currentLevel"], currentLevel + 1);
+        this.set(["simonSayGame", "currentStreak"],  currentStreak + 1);
+        this.set(["simonSayGame", "currentScore"], currentScore + 10);
         this.set(["simonSayGame", "currentSequenceIndex"], 0);
         this.generateSequencesByLevel();
       }
     } else {
       this.resetToDefault();
-      this.set(["simonSayGame", "isGameOver"], true);
+      this.set(["gameOverModal", "open"], true);
     }
-    console.log("Binding state and setState", this.state);
     this.commit();
   };
 
+
+  closeGameOverModal = (state, setState) => {
+    this.bind(state, setState);
+    this.set(["gameOverModal", "open"], false);
+    this.commit();
+  };
+  closeNextLevelModal = (state, setState) => {
+    this.bind(state, setState);
+    this.set(["nextLevelModal", "open"], false);
+    this.set(["simonSayGame", "isPlayerTurn"], false);
+    this.commit();
+  };
   /**
    * List of effects that can be triggered externally.
    */
@@ -107,7 +118,6 @@ export default class HomeClass extends StateClass {
     const sequence = this.get(["simonSayGame", "sequence"]);
     const currentSequenceIndex = this.get(["simonSayGame", "currentSequenceIndex"]);
 
-    console.log("Playing sequence at index:", sequence, currentSequenceIndex);
     if (currentSequenceIndex < sequence.length) {
       const step = sequence[currentSequenceIndex];
 
@@ -135,7 +145,6 @@ export default class HomeClass extends StateClass {
 
       this.set(["simonSayGame", "currentSequenceIndex"], currentSequenceIndex + 1);
     } else {
-      console.log("Sequence completed");
       this.set(["simonSayGame", "isPlayerTurn"], true);
       this.set(["simonSayGame", "currentSequenceIndex"], 0);
     }
@@ -143,23 +152,19 @@ export default class HomeClass extends StateClass {
     return this;
   };
 
-  /**
-   * Returns the effects (methods) that can be triggered externally.
-   */
-  getEffects() {
-    return {
-      playSequence: this.playSequence,
-    };
-  }
 
-  /**
-   * Returns the clicks (methods) that can be triggered externally.
-   */
-  getClicks() {
+  getController() {
     return {
-      startGame: this.startGame,
-      resetGame: this.resetGame,
-      validatePlayerMove: this.validatePlayerMove,
+      effects: {
+        playSequence: this.playSequence,
+      },
+      clicks: {
+        startGame: this.startGame,
+        resetGame: this.resetGame,
+        validatePlayerMove: this.validatePlayerMove,
+        closeGameOverModal: this.closeGameOverModal,
+        closeNextLevelModal: this.closeNextLevelModal,
+      },
     };
   }
 
