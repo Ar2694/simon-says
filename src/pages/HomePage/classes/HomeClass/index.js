@@ -4,6 +4,8 @@ export default class HomeClass extends StateClass {
   constructor(state, setState) {
     super(state, setState);
 
+    this.audioContext = null;
+
     this.defaultState = {
       simonSayGame: {
         sequence: [],
@@ -44,6 +46,63 @@ export default class HomeClass extends StateClass {
   /**
    * Shared methods used internally within the class.
    */
+  getAudioContext() {
+    const AudioCtor = window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioCtor) {
+      return null;
+    }
+
+    if (!this.audioContext) {
+      this.audioContext = new AudioCtor();
+    }
+
+    if (this.audioContext.state === "suspended") {
+      this.audioContext.resume();
+    }
+
+    return this.audioContext;
+  }
+
+  playTone(frequency, duration = 0.18, volume = 0.08) {
+    const ctx = this.getAudioContext();
+
+    if (!ctx) {
+      return;
+    }
+
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.value = frequency;
+
+    gainNode.gain.value = volume;
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+    oscillator.stop(ctx.currentTime + duration);
+  }
+
+  playButtonSound(id) {
+    const tones = {
+      1: 261.63,
+      2: 329.63,
+      3: 392.0,
+      4: 493.88,
+    };
+
+    this.playTone(tones[id] ?? 440, 0.18, 0.07);
+  }
+
+  playErrorSound() {
+    this.playTone(180, 0.28, 0.08);
+    setTimeout(() => this.playTone(120, 0.35, 0.08), 120);
+  }
+
   generateSequencesByLevel() {
     const currentLevel = this.get(["simonSayGame", "currentLevel"]);
     const newSequence = Array.from({ length: currentLevel }, () => Math.floor(Math.random() * 4) + 1);
@@ -78,6 +137,8 @@ export default class HomeClass extends StateClass {
 
   validatePlayerMove = (state, setState, id) => {
     this.bind(state, setState);
+    this.playButtonSound(id);
+
     const sequence = this.get(["simonSayGame", "sequence"]);
     const currentSequenceIndex = this.get(["simonSayGame", "currentSequenceIndex"]);
     const currentLevel = this.get(["simonSayGame", "currentLevel"]);
@@ -89,12 +150,13 @@ export default class HomeClass extends StateClass {
       if (currentLevel === currentSequenceIndex + 1) {
         this.set(["nextLevelModal", "open"], true);
         this.set(["simonSayGame", "currentLevel"], currentLevel + 1);
-        this.set(["simonSayGame", "currentStreak"],  currentStreak + 1);
+        this.set(["simonSayGame", "currentStreak"], currentStreak + 1);
         this.set(["simonSayGame", "currentScore"], currentScore + 10);
         this.set(["simonSayGame", "currentSequenceIndex"], 0);
         this.generateSequencesByLevel();
       }
     } else {
+      this.playErrorSound();
       this.resetToDefault();
       this.set(["gameOverModal", "open"], true);
     }
@@ -136,21 +198,25 @@ export default class HomeClass extends StateClass {
       const step = sequence[currentSequenceIndex];
 
       if (step === 1) {
+        this.playButtonSound(1);
         this.set(["simonSayGame", "btn1", "active"], true).commit();
         setTimeout(() => {
           this.set(["simonSayGame", "btn1", "active"], false).commit();
         }, 500);
       } else if (step === 2) {
+        this.playButtonSound(2);
         this.set(["simonSayGame", "btn2", "active"], true).commit();
         setTimeout(() => {
           this.set(["simonSayGame", "btn2", "active"], false).commit();
         }, 500);
       } else if (step === 3) {
+        this.playButtonSound(3);
         this.set(["simonSayGame", "btn3", "active"], true).commit();
         setTimeout(() => {
           this.set(["simonSayGame", "btn3", "active"], false).commit();
         }, 500);
       } else if (step === 4) {
+        this.playButtonSound(4);
         this.set(["simonSayGame", "btn4", "active"], true).commit();
         setTimeout(() => {
           this.set(["simonSayGame", "btn4", "active"], false).commit();
