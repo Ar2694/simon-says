@@ -1,87 +1,95 @@
 .root {
   border: none;
-  border-radius: 12px;
-cursor: unset;
-  font-size: 1.5em;
-  font-weight: bold;
+  border-radius: 14px;
+  cursor: unset;
+  font-size: 1.6em;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 2px;
   position: relative;
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 250px;
-
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 12px 28px rgba(0, 0, 0, 0.2);
+  filter: saturate(1.2) brightness(1.08);
 }
+
 .root:global(.player-active:hover) {
   cursor: pointer;
+  filter: brightness(1.18);
 }
 
 .root:global(.btn-1) {
-  background: linear-gradient(135deg, #ff006e, #ff3a7e);
-  color: white;
-  border: 2px solid #ff006e;
+  background: linear-gradient(135deg, #ff1f7a, #ff5a8a);
+  color: #fff;
+  border: 3px solid #ff5a8a;
   box-shadow:
-    0 0 15px rgba(255, 0, 110, 0.5),
-    inset 0 0 15px rgba(255, 255, 255, 0.1);
+    0 0 18px rgba(255, 31, 122, 0.65),
+    inset 0 0 18px rgba(255, 255, 255, 0.12);
 }
 
 .root:global(.btn-1.active),
 .root:global(.btn-1.player-active:hover) {
   box-shadow:
-    0 0 30px rgba(255, 0, 110, 0.8),
-    inset 0 0 20px rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+    0 0 34px rgba(255, 31, 122, 1),
+    inset 0 0 24px rgba(255, 255, 255, 0.24);
+  transform: scale(1.06);
+  filter: brightness(1.2);
 }
 
 .root:global(.btn-2) {
-  background: linear-gradient(135deg, #00f5ff, #00d4ff);
-  color: #000;
-  border: 2px solid #00f5ff;
+  background: linear-gradient(135deg, #12e8ff, #3ad9ff);
+  color: #00131a;
+  border: 3px solid #12e8ff;
   box-shadow:
-    0 0 15px rgba(0, 245, 255, 0.5),
-    inset 0 0 15px rgba(255, 255, 255, 0.1);
+    0 0 18px rgba(18, 232, 255, 0.65),
+    inset 0 0 18px rgba(255, 255, 255, 0.12);
 }
+
 .root:global(.btn-2.active),
 .root:global(.btn-2.player-active:hover) {
   box-shadow:
-    0 0 30px rgba(0, 245, 255, 0.8),
-    inset 0 0 20px rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+    0 0 34px rgba(18, 232, 255, 1),
+    inset 0 0 24px rgba(255, 255, 255, 0.24);
+  transform: scale(1.06);
+  filter: brightness(1.2);
 }
 
 .root:global(.btn-3) {
-  background: linear-gradient(135deg, #39ff14, #52ff2a);
-  color: #000;
-  border: 2px solid #39ff14;
+  background: linear-gradient(135deg, #4dff45, #7bff5b);
+  color: #061300;
+  border: 3px solid #4dff45;
   box-shadow:
-    0 0 15px rgba(57, 255, 20, 0.5),
-    inset 0 0 15px rgba(255, 255, 255, 0.1);
+    0 0 18px rgba(77, 255, 69, 0.65),
+    inset 0 0 18px rgba(255, 255, 255, 0.12);
 }
 
 .root:global(.btn-3.active),
 .root:global(.btn-3.player-active:hover) {
   box-shadow:
-    0 0 30px rgba(57, 255, 20, 0.8),
-    inset 0 0 20px rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+    0 0 34px rgba(77, 255, 69, 1),
+    inset 0 0 24px rgba(255, 255, 255, 0.24);
+  transform: scale(1.06);
+  filter: brightness(1.2);
 }
 
 .root:global(.btn-4) {
-  background: linear-gradient(135deg, #b537f2, #c850d0);
-  color: white;
-  border: 2px solid #b537f2;
+  background: linear-gradient(135deg, #c555ff, #d883ff);
+  color: #fff;
+  border: 3px solid #c555ff;
   box-shadow:
-    0 0 15px rgba(181, 55, 242, 0.5),
-    inset 0 0 15px rgba(255, 255, 255, 0.1);
+    0 0 18px rgba(197, 85, 255, 0.65),
+    inset 0 0 18px rgba(255, 255, 255, 0.12);
 }
 
 .root:global(.btn-4.active),
 .root:global(.btn-4.player-active:hover) {
   box-shadow:
-    0 0 30px rgba(181, 55, 242, 0.8),
-    inset 0 0 20px rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+    0 0 34px rgba(197, 85, 255, 1),
+    inset 0 0 24px rgba(255, 255, 255, 0.24);
+  transform: scale(1.06);
+  filter: brightness(1.2);
 }
